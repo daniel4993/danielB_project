@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+
+\begin{document}
+
+\section{Physics of the droplets}
+
+\subsection{Modelling the problem}
+
+
+
+
+A sphere moving at constant speed through a viscous fluid is well-known problem. Usually this problem has been studied based on a solid sphere dropping on the fluid (Stokes'Law), but in this case we are going to study the buoyancy problem.
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{images/Problem_physics.jpg}
+  \caption{Spehere in a viscous fluid.}
+  \label{fig:model_phy}
+\end{figure}
+
+In the Figure \ref{fig:model_phy}   we can see the basics of the problem in a simplified model. As it can be seen there are three main forces acting in the sphere. The first force to take into account is the weight of the sphere. Furthermore, the movement of the sphere inside the fluid depends on the density relation between the fluids (or phases). This  buoyancy  is given by Archimedes principle which asserts that the buoyant force is equal to the weight of the displaced water.
+
+
+So we have:
+
+\begin{equation}
+ M\frac{d^2z}{dt^2}=F_E-F_D-W\\
+\end{equation}
+
+Where:
+\begin{align}
+F_E&=m_wg_0=\rho_wV_dg_0\\
+F_D&=\frac{1}{2}\rho_wA_dC_DU_d^2 \\
+W&=m_dg_0 \\
+\end{align}
+
+ and
+
+\begin{equation}
+V_d=\frac{4\pi}{3}r_d^3\\
+\end{equation}
+
+Considering steady-state and solving the equation for the velocity:
+
+\begin{equation}
+U_d=\sqrt{\frac{8r_dg_0}{3C_d}\left(1-\frac{\rho_d}{\rho_w}\right) }\\
+\end{equation}
+
+\subsection{Stokes' Law}
+So the velocity of the droplet with depends on the drag coefficient and its necessary to find a expression of this coefficient for a droplet.
+
+Stokes calculated this drag force for a static sphere in a steady,uniform, infinite viscous and incompressible flow as:
+\begin{equation}
+F_d=-U_d\left(6\pi\eta r_d\right) \\
+\end{equation}
+This expression allows to get the next expression:
+
+\begin{equation}
+U_d=\frac{2r_d^2g_0}{9\nu}\left(1-\frac{\rho_d}{\rho_w}\right) \\
+\end{equation}
+where $\nu$ is the dynamic viscosity
+\end{document}
