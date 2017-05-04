@@ -1,0 +1,28 @@
+# Input file for droplet inverse problem
+
+[Data]
+   conversion_datasets = './data/slomo_1471360151_mmPixel.csv'
+   position_datasets = './data/slomo_1471360151_rise.csv'
+   frame_rate = '60'
+
+   # Number of pixels "fuzz" in a single position measurement (at the bubble boundary)
+   n_pixels_boundary = '10'
+[]
+
+[Droplet]
+   fluid_density = '997' #Water, [kg/m^3]
+
+   drag_coeff = '0.9'
+   drag_coeff_min = '0.8' #Normalized based on nominal radius determined by data
+   drag_coeff_max = '2.0' #Normalized based on nominal radius determined by data
+
+   droplet_density = '961' #Published value of caster oil, [kg/m^3]
+   droplet_density_min = '0.8'
+   droplet_density_max = '1.2'
+[]
+
+[InverseProblem]
+   scenario = 'fixed_rhof_fixed_rd_position_infer_cd'
+   solver_type = 'metropolis-hastings'
+   guess = '1.0 1.0'
+[]
