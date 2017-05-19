@@ -23,7 +23,7 @@
 //-----------------------------------------------------------------------el-
 
 // This class
-#include <dip/fixed_fluid_density_no_fixed_infer_drag_radius_scenario.h>
+#include <dip/fixed_fluid_density_fixed_droplet_radius_position_infer_drag_scenario.h>
 
 // DIP
 #include <dip/droplet_data.h>
@@ -47,13 +47,13 @@ namespace DIP
 {
 
   template<typename VectorType, typename MatrixType>
-  FixedFluidDensityNoFixedInferDragRadiusScenario<VectorType,MatrixType>::
-  FixedFluidDensityNoFixedInferDragRadiusScenario( const QUESO::GetPot & input,
+  FixedFluidDensityFixedDropletRadiusPositionInferDragScenario<VectorType,MatrixType>::
+  FixedFluidDensityFixedDropletRadiusPositionInferDragScenario( const QUESO::GetPot & input,
                                                                const QUESO::BaseEnvironment & queso_env,
                                                                const DropletData<VectorType,MatrixType> & data )
-    : FixedFluidDensityNoFixedScenarioBase<VectorType,MatrixType>(input,data),
+    : FixedFluidDensityFixedDropletRadiusPositionScenarioBase<VectorType,MatrixType>(input,data),
     //_n_params(1+this->_data.n_data())
-      _n_params(3)
+     _n_params(2)
     //_n_marg_params(1)
   {
     // Setup parameter space, domain, and RV
@@ -67,12 +67,9 @@ namespace DIP
 
     (*param_mins)[0] = this->_rho_d_min;
     (*param_mins)[1] = this->_cd_min;
-    (*param_mins)[2] = this->_r_d_min;
-
 
     (*param_maxs)[0] = this->_rho_d_max;
     (*param_maxs)[1] = this->_cd_max;
-    (*param_maxs)[2] = this->_r_d_max;
 
     this->_param_domain.reset( new QUESO::BoxSubset<VectorType,MatrixType>("param_domain_", *(this->_param_space),
                                                                            *param_mins,*param_maxs) );
@@ -85,7 +82,7 @@ namespace DIP
 
   template<typename VectorType, typename MatrixType>
   void
-  FixedFluidDensityNoFixedInferDragRadiusScenario<VectorType,MatrixType>::
+  FixedFluidDensityFixedDropletRadiusPositionInferDragScenario<VectorType,MatrixType>::
   eval_model( const VectorType & domain_vector,
               VectorType & model_output ) const
   {
@@ -94,7 +91,7 @@ namespace DIP
     queso_assert_equal_to(model_output.sizeGlobal(), this->_data.n_data());
 
     const double rho_d = this->_rho_d_nom*domain_vector[0];
-    //const double _cd = this->_cd*domain_vector[0];
+    const double cd = this->_cd*domain_vector[1];
 
 
    for( unsigned int i = 0; i < this->_data.n_data(); i++ )
@@ -106,7 +103,7 @@ namespace DIP
         model_output[i] = this->_model.position(this->_rho_f,
                                                 rho_d,
                                                 r_d,
-                                                this->_cd,
+                                                cd,
                                                 t);
       }
   }
@@ -114,4 +111,4 @@ namespace DIP
 } // end namespace DIP
 
 // Instantiate
-template class DIP::FixedFluidDensityNoFixedInferDragRadiusScenario<QUESO::GslVector,QUESO::GslMatrix>;
+template class DIP::FixedFluidDensityFixedDropletRadiusPositionInferDragScenario<QUESO::GslVector,QUESO::GslMatrix>;
